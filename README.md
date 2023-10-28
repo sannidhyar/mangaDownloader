@@ -1,3 +1,3 @@
 # mangaDownloader
 
-Download Mangas for situations where internet connectivity is not good. Currently works only for Asura scans.
+A simple python script to download manga from various websites. Currently supports only Asura scans. Pass the link to the last chapter and it will download from 1st to last.

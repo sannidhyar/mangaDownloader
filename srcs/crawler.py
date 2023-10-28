@@ -3,10 +3,10 @@ from bs4 import *
 import requests
 import os
 from tqdm import trange
+import threading
 
 # CREATE FOLDER
 def folder_create(images, folderName):
-    
     if not os.path.exists(folderName):
         os.makedirs(folderName)
         
@@ -22,6 +22,25 @@ def folder_create(images, folderName):
     return count
     # else:
     #     print(f'These are present {allFiles}\n')
+
+
+def getNextUrl(refs):
+    with open('./logs/log.txt', 'w') as f:
+        nextUrl = None
+        try:
+            allInRefs = refs[18].string.split(',')
+            for x in range(len(allInRefs)):
+                if 'nextUrl' in allInRefs[x]:
+                    nextUrl = allInRefs[x].split('"')[-2].replace('\\', '')
+        except:
+            for i, ref in enumerate(refs):
+                allInRefs = ref.string.split(',')
+                for x in range(len(allInRefs)):
+                    if 'nextUrl' in allInRefs[x]:
+                        nextUrl = allInRefs[x].split('"')[-2].replace('\\', '')
+        f.write(nextUrl)
+    return nextUrl        
+        
 # DOWNLOAD ALL IMAGES FROM THAT URL
 def download_images(images, folder_name):
     # initial count is zero
@@ -106,22 +125,21 @@ def starterFunction(url, folderName):
 
     # find all images in URL
     images = soup.findAll('img')
-    # print(images)
+    refs = soup.findAll('script')
+    nextUrl = getNextUrl(refs)
 
     # Call folder create function
     count = folder_create(images, folderName)
     
-    return count
+    return count, nextUrl
 
 
 
 if __name__ == '__main__':
     # take url
-    # print(sys.argv)
     url = sys.argv[1]
-    
     # folderName
     folderName = sys.argv[2]
-
+        
     # CALL MAIN FUNCTION
-    starterFunction(url, folderName)
+    print(starterFunction(url, folderName))

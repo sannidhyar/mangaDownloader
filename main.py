@@ -74,14 +74,19 @@ for x in t:
     chapterNum = x
     subFolder = getSubFolder(chapterNum)
     # set folder as manga and its chapter
-    folderName = f'/home/sannidhyar/coding/python/asura/{mangaName}/'
+    folderName = f'/home/sannidhyar/coding/python/mangaDownloader/{mangaName}/'
     imgDir = folderName + subFolder + '/'
     count = 0
     if crawl:
         # print('CRAWLING:\n')
         t.set_description(f"Chapter {x}: Crawling")
         t.refresh()
-        count = crawler.starterFunction(f'{url}{x}/', f'{imgDir}')
+        if x == start:
+            # exit()
+            count, nextUrl = crawler.starterFunction(f'{url}{x}/', f'{imgDir}')
+        else:
+            count, nextUrl = crawler.starterFunction(nextUrl, f'{imgDir}')
+        # exit()
         # os.system(f'python crawler.py {url}{x}/ {imgDir}')
     if removeGarbage:
         # print('REMOVING GARBAGE:\n')
