@@ -1,6 +1,7 @@
 Omniscient_Readers_Viewpoint/*
 I_Reincarnated_As_The_Crazed_Heir/*
-srcs/__pycache__/__init__.cpython-311.pyc
-srcs/__pycache__/crawler.cpython-311.pyc
-srcs/__pycache__/garbage.cpython-311.pyc
-srcs/__pycache__/html_maker.cpython-311.pyc
+Legend_Of_Asura_The_Venom_Dragon/*
+test/*
+logs/*
+*.zip
+srcs/__pycache__/*
