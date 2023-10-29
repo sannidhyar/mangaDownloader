@@ -4,7 +4,7 @@ import requests
 import os
 from tqdm import trange
 import threading
-
+from srcs.garbage import checkAndRemove
 # CREATE FOLDER
 def folder_create(images, folderName):
     if not os.path.exists(folderName):
@@ -50,6 +50,7 @@ def download_images(images, folder_name):
     # print(f"Total {len(images)} Image Found!")
     # print(images)
     # checking if images is not zero
+    countDeleted = 0
     if totalImgs != 0:
         # for i, image in enumerate(images):
         t = trange(totalImgs, leave=False)
@@ -86,22 +87,14 @@ def download_images(images, folder_name):
                     # After checking above condition, Image Download start
                     t.set_description(f"Downloading {count}/{totalImgs}")
                     if i < 9:
-                        # with open(f"{folder_name}/images0{i+1}.png", "wb+") as f:
-                        # 	f.write(r)
                         # if i != 2:
-                        if i >= -1:
-                            # print(f"saving images0{i+1}.jpg")
-                            with open(f"{folder_name}/images0{i+1}.jpg", "wb+") as f:
-                                f.write(r)
-                        else:
-                            print(f'Not saving images0{i+1}.jpg')
+                        with open(f"{folder_name}/images0{i+1}.jpg", "wb+") as f:
+                            f.write(r)
+                        countDeleted = checkAndRemove(f"{folder_name}/images0{i+1}.jpg", countDeleted)
                     else:
-                        # print("HELLO")
-                        # with open(f"{folder_name}/images{i+1}.png", "wb+") as f:
-                        # 	f.write(r)
-                        # print(f"saving images{i+1}.jpg")
                         with open(f"{folder_name}/images{i+1}.jpg", "wb+") as f:
                             f.write(r)
+                        countDeleted = checkAndRemove(f"{folder_name}/images{i+1}.jpg", countDeleted)
 
                     # counting number of image downloaded
                     count += 1
@@ -125,13 +118,14 @@ def starterFunction(url, folderName):
 
     # find all images in URL
     images = soup.findAll('img')
-    refs = soup.findAll('script')
-    nextUrl = getNextUrl(refs)
+    # refs = soup.findAll('script')
+    # nextUrl = getNextUrl(refs)
 
     # Call folder create function
     count = folder_create(images, folderName)
     
-    return count, nextUrl
+    # return count, nextUrl
+    return count
 
 
 

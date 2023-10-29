@@ -2,6 +2,25 @@ import os
 import cv2
 import sys
 
+
+def checkAndRemove(imgName, countDeleted):
+    img = cv2.imread(imgName, 1)
+    failures = []
+    try:
+        height, width, _ = img.shape
+        if(height < 2000 or width > 1000):
+            # print(img.shape)
+            # print(image)
+            os.remove(imgName)
+            countDeleted += 1
+    except:
+        # print('\n')
+        failures.append(imgName)
+        # print('\n')
+        # os.system('\^C')
+    return failures, countDeleted
+
+
 def removeGarbageImages(imgDir):
 
     # x = sys.argv[1]
