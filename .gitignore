@@ -1,7 +1,8 @@
-Omniscient_Readers_Viewpoint/*
-I_Reincarnated_As_The_Crazed_Heir/*
-Legend_Of_Asura_The_Venom_Dragon/*
+Omniscient_Readers_Viewpoint*
+I_Reincarnated_As_The_Crazed_Heir*
+Legend_Of_Asura_The_Venom_Dragon*
 test/*
 logs/*
 *.zip
 srcs/__pycache__/*
+.gitignore

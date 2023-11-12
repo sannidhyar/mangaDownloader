@@ -114,6 +114,9 @@ else:
 
     t = trange(start, end, desc='Bar desc', leave=True)
     for x in t:
+        # Skip a few chapter(the sorted order)
+        # if x < 150:
+        #     continue
         url = allLinks[x]
         # x = str(x)
         # Create the nameing system
